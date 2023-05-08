@@ -2,18 +2,19 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 readonly SCRIPT_DIR=$(cd "$(dirname -- "$0")"&&pwd)
+readonly PACKAGE_DIR=$(cd "$SCRIPT_DIR"/..&&pwd) || return $?
 readonly BUILT_ASSETS_DIR="public/build"
 
 is_resource_changed() {
     readonly css_dir="/resources/css/"
     readonly js_dir="/resources/js/"
 
-    cd "$SCRIPT_DIR" && git diff --diff-filter=d --cached --name-only \
+    cd "$PACKAGE_DIR" && git diff --diff-filter=d --cached --name-only \
     | grep -q -e "$css_dir" -e "$js_dir"
 }
 
 build() {
-    cd "$SCRIPT_DIR" \
+    cd "$PACKAGE_DIR" \
     && npm run build \
     && git add "$BUILT_ASSETS_DIR"
 }
@@ -27,10 +28,9 @@ EOS
 }
 
 main() {
-    is_resource_changed
-#    if is_resource_changed ; then
-#        show_banner && build || return $?
-#    fi
+    if is_resource_changed ; then
+        show_banner && build || return $?
+    fi
 }
 main || exit $?
 
