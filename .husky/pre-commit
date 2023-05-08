@@ -28,10 +28,9 @@ EOS
 }
 
 main() {
-    show_banner
-#    if is_resource_changed ; then
-#        show_banner && build || return $?
-#    fi
+    if is_resource_changed ; then
+        show_banner && build || return $?
+    fi
 }
 main || exit $?
 
