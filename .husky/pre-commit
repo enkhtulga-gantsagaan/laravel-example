@@ -9,9 +9,8 @@ is_resource_changed() {
     readonly css_dir="/resources/css/"
     readonly js_dir="/resources/js/"
 
-    cd "$PACKAGE_DIR" && pwd && cd "$css_dir" && pwd
-#    cd "$PACKAGE_DIR" && git diff --diff-filter=d --cached --name-only \
-#    | grep -q -e "$css_dir" -e "$js_dir"
+    cd "$PACKAGE_DIR" && git diff --diff-filter=d --cached --name-only \
+        | grep -e "$css_dir" -e "$js_dir"
 }
 
 build() {
