@@ -6,8 +6,8 @@ readonly PACKAGE_DIR=$(cd "$SCRIPT_DIR"/..&&pwd) || return $?
 readonly BUILT_ASSETS_DIR="public/build"
 
 is_resource_changed() {
-    readonly css_dir="/resources/css/"
-    readonly js_dir="/resources/js/"
+    readonly css_dir="resources/css/"
+    readonly js_dir="resources/js/"
 
     cd "$PACKAGE_DIR" && git diff --diff-filter=d --cached --name-only \
         | grep -e "$css_dir" -e "$js_dir"
